@@ -1,7 +1,9 @@
-FROM ubuntu:20.04
+ARG WORKSPACE=/tmp
+
+FROM ubuntu:20.04 as package-install
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG WORKSPACE=/tmp
+ARG WORKSPACE
 
 WORKDIR ${WORKSPACE}
 
@@ -28,4 +30,19 @@ RUN git clone https://github.com/Kitware/CMake.git && \
     make && \
     make install
 
-RUN rm -rfv CMake
+
+
+FROM ubuntu:20.04
+
+# 必要なもののみコピーして軽量化
+COPY --from=package-install /etc /etc
+COPY --from=package-install /usr /usr
+COPY --from=package-install /var /var
+
+ARG WORKSPACE
+
+WORKDIR ${WORKSPACE}
+
+
+
+

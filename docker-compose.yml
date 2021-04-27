@@ -1,24 +1,5 @@
 version: "3.0"
 
-## example command（with docker command）
-
-## Build
-# docker build -t {image name to create} .
-
-## Build a specific stage
-# docker build -t {image name to create} --target {stage name} .
-
-## Run
-# docker run --rm -it -v ./:/tmp/workspace hazuki3417/cpp-build 
-
-## example command（with docker-compose command）
-
-## Build
-# docker-compose build --no-cache cpp-build
-
-## Run
-# docker-compose run --rm cpp-build
-
 services:
   cpp-build:
     build:
